@@ -2,20 +2,38 @@ import React from 'react';
 
 import {
   View,
-  Text,
   SafeAreaView,
   StyleSheet,
   useColorScheme,
+  ScrollView,
+  Image,
 } from 'react-native';
+import FlatCards from './components/FlatCards';
 
 export default function App() {
   const isDarkTheme = useColorScheme() === 'dark';
   return (
     <SafeAreaView>
-      <View style={style.container}>
-        <Text style={isDarkTheme ? style.darkTheme : style.lightTheme}>
-          hello world
-        </Text>
+      <ScrollView horizontal={true}>
+        <View style={style.container}>
+          {['#ee5678', '#ee7889', '#ee9999', '#eeaaaa', '#eebbbb'].map(
+            (clr, num) => (
+              <FlatCards
+                key={num}
+                isDarkTheme={isDarkTheme}
+                number={num}
+                color={clr}
+              />
+            ),
+          )}
+        </View>
+      </ScrollView>
+      <View>
+        <Image
+          source={{uri: 'https://picsum.photos/200'}}
+          width={200}
+          height={200}
+        />
       </View>
     </SafeAreaView>
   );
@@ -23,7 +41,9 @@ export default function App() {
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#ff0000',
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
   },
   darkTheme: {
     color: 'blue',
